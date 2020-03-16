@@ -4,7 +4,7 @@ Card = namedtuple('Card', ['rank', 'suit'])
 
 
 class Deck:
-    ranks = [str(n) for n in range(2, 11)] + list('JQKA')
+    ranks = [str(n) for n in range(2, 10)] + list('TJQKA')
     suits = list('SDCH')
 
     def __init__(self):
