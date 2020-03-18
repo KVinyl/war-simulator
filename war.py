@@ -59,6 +59,13 @@ def game(player1, player2):
     return 1 if len(player2) == 0 else 2
 
 
+def deal():
+    deck = Deck()
+    shuffle(deck)
+
+    return [deque(deck[:26]), deque(deck[26:])]
+
+
 def main():
     num_games = 10000
     wins1 = wins2 = 0
@@ -67,11 +74,7 @@ def main():
     n_ace_games = {n: 0 for n in range(5)}
 
     for _ in range(num_games):
-        deck = Deck()
-        shuffle(deck)
-
-        player1 = deque(deck[:26])
-        player2 = deque(deck[26:])
+        player1, player2 = deal()
 
         aces = len([card for card in player1 if card.rank == 'A'])
         n_ace_games[aces] += 1
