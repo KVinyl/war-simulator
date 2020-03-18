@@ -8,10 +8,15 @@ rank_tran = {rank: n for n, rank in enumerate(ranks, 2)}
 
 
 def war_rank(card):
+    """Returns numerical value based on card rank (Aces high)"""
     return rank_tran[card.rank]
 
 
 def war(player1, player2, pot, cards_down=3):
+    """Players place their next {cards_down} cards to the table.
+    If the players don't have enough cards, their last card will determine
+    the winner of the war.
+    """
     # print('WAR!')
     if len(player1) == 0:
         player1.append(pot.popleft())
@@ -28,6 +33,10 @@ def war(player1, player2, pot, cards_down=3):
 
 
 def battle(player1, player2, pot=deque()):
+    """Compares the top cards of each player.
+    Player with the higher rank top card wins the played cards.
+    Goes to war if tied.
+    """
     card1, card2 = player1.popleft(), player2.popleft()
     pot.appendleft(card1)
     pot.append(card2)
@@ -52,6 +61,7 @@ def battle(player1, player2, pot=deque()):
 
 
 def game(player1, player2):
+    """Simulates one game of war and returns the winner."""
     while len(player1) > 0 and len(player2) > 0:
         battle(player1, player2)
         # print('player 1:', len(player1), '\tplayer 2:', len(player2), '\n')
@@ -60,6 +70,7 @@ def game(player1, player2):
 
 
 def deal():
+    """Returns an evenly divided shuffle deck to two players."""
     deck = Deck()
     shuffle(deck)
 
@@ -67,6 +78,10 @@ def deal():
 
 
 def main():
+    """Simulates multiple games of war.
+    Displays winning percentage based on number of aces in
+    player one's deck at the start of each game.
+    """
     num_games = 10000
     wins1 = wins2 = 0
 
