@@ -62,6 +62,10 @@ def game(player1, player2):
 def main():
     num_games = 10000
     wins1 = wins2 = 0
+
+    n_ace_wins = {n: 0 for n in range(5)}
+    n_ace_games = {n: 0 for n in range(5)}
+
     for _ in range(num_games):
         deck = Deck()
         shuffle(deck)
@@ -69,13 +73,20 @@ def main():
         player1 = deque(deck[:26])
         player2 = deque(deck[26:])
 
+        aces = len([card for card in player1 if card.rank == 'A'])
+        n_ace_games[aces] += 1
+
         if game(player1, player2) == 1:
             wins1 += 1
+            n_ace_wins[aces] += 1
         else:
             wins2 += 1
 
     print('Player 1 wins:', wins1)
     print('Player 2 wins:', wins2)
+
+    for n in range(5):
+        print(f'{n} aces: {n_ace_wins[n]/n_ace_games[n]:.3%}')
 
 
 if __name__ == "__main__":
