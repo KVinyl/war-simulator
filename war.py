@@ -12,7 +12,7 @@ def war_rank(card):
 
 
 def war(player1, player2, pot, cards_down=3):
-    print('WAR!')
+    # print('WAR!')
     if len(player1) == 0:
         player1.append(pot.popleft())
     else:
@@ -32,18 +32,18 @@ def battle(player1, player2, pot=deque()):
     pot.appendleft(card1)
     pot.append(card2)
 
-    print(card1.rank, 'vs', card2.rank)
+    # print(card1.rank, 'vs', card2.rank)
     if war_rank(card1) > war_rank(card2):
         if choice([0, 1]):
             pot.reverse()
-        print('player 1 wins', pot)
+        # print('player 1 wins', pot)
         player1.extend(pot)
         pot.clear()
 
     elif war_rank(card1) < war_rank(card2):
         if choice([0, 1]):
             pot.reverse()
-        print('player 2 wins', pot)
+        # print('player 2 wins', pot)
         player2.extend(pot)
         pot.clear()
 
@@ -54,19 +54,28 @@ def battle(player1, player2, pot=deque()):
 def game(player1, player2):
     while len(player1) > 0 and len(player2) > 0:
         battle(player1, player2)
-        print('player 1:', len(player1), '\tplayer 2:', len(player2), '\n')
+        # print('player 1:', len(player1), '\tplayer 2:', len(player2), '\n')
 
-    return 'player 1 wins' if len(player2) == 0 else 'player 2 wins'
+    return 1 if len(player2) == 0 else 2
 
 
 def main():
-    deck = Deck()
-    shuffle(deck)
+    num_games = 10000
+    wins1 = wins2 = 0
+    for _ in range(num_games):
+        deck = Deck()
+        shuffle(deck)
 
-    player1 = deque(deck[:26])
-    player2 = deque(deck[26:])
+        player1 = deque(deck[:26])
+        player2 = deque(deck[26:])
 
-    print(game(player1, player2))
+        if game(player1, player2) == 1:
+            wins1 += 1
+        else:
+            wins2 += 1
+
+    print('Player 1 wins:', wins1)
+    print('Player 2 wins:', wins2)
 
 
 if __name__ == "__main__":
