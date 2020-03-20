@@ -3,15 +3,6 @@ from deck import Deck
 from random import choice, shuffle
 
 
-ranks = [str(n) for n in range(2, 10)] + list('TJQKA')
-rank_tran = {rank: n for n, rank in enumerate(ranks, 2)}
-
-
-def war_rank(card):
-    """Returns numerical value based on card rank (Aces high)"""
-    return rank_tran[card.rank]
-
-
 def war(player1, player2, pot, cards_down=3):
     """Players place their next {cards_down} cards to the table.
     If the players don't have enough cards, their last card will determine
@@ -42,14 +33,14 @@ def battle(player1, player2, pot=deque()):
     pot.append(card2)
 
     # print(card1.rank, 'vs', card2.rank)
-    if war_rank(card1) > war_rank(card2):
+    if card1 > card2:
         if choice([0, 1]):
             pot.reverse()
         # print('player 1 wins', pot)
         player1.extend(pot)
         pot.clear()
 
-    elif war_rank(card1) < war_rank(card2):
+    elif card1 < card2:
         if choice([0, 1]):
             pot.reverse()
         # print('player 2 wins', pot)

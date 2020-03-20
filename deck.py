@@ -1,6 +1,4 @@
-from collections import namedtuple
-
-Card = namedtuple('Card', ['rank', 'suit'])
+from card import Card
 
 
 class Deck:
