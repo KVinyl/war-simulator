@@ -3,6 +3,15 @@ from deck import Deck
 from random import choice, shuffle
 
 
+def rand_rev(deck):
+    """Returns the deck in reversed order 50% of the time.
+    Otherwise returns the deck unchanged.
+    """
+    if choice([0, 1]):
+        deck.reverse()
+    return deck
+
+
 def war(player1, player2, pot, cards_down=3):
     """Players place their next {cards_down} cards to the table.
     If the players don't have enough cards, their last card will determine
@@ -34,17 +43,13 @@ def battle(player1, player2, pot=deque()):
 
     # print(card1.rank, 'vs', card2.rank)
     if card1 > card2:
-        if choice([0, 1]):
-            pot.reverse()
         # print('player 1 wins', pot)
-        player1.extend(pot)
+        player1.extend(rand_rev(pot))
         pot.clear()
 
     elif card1 < card2:
-        if choice([0, 1]):
-            pot.reverse()
         # print('player 2 wins', pot)
-        player2.extend(pot)
+        player2.extend(rand_rev(pot))
         pot.clear()
 
     else:
