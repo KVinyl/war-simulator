@@ -16,65 +16,65 @@ def rand_rev(deck):
     return deck
 
 
-def war(player1, player2, pot, cards_down=3):
+def war(deck1, deck2, pot, cards_down=3):
     """Players place their next {cards_down} cards to the table.
     If the players don't have enough cards, their last card will determine
     the winner of the war.
     """
     # print('WAR!')
-    if len(player1) == 0:
-        player1.append(pot.popleft())
+    if len(deck1) == 0:
+        deck1.append(pot.popleft())
     else:
-        for _ in range(min(cards_down, len(player1)-1)):
-            pot.appendleft(player1.popleft())
+        for _ in range(min(cards_down, len(deck1)-1)):
+            pot.appendleft(deck1.popleft())
 
-    if len(player2) == 0:
-        player2.append(pot.pop())
+    if len(deck2) == 0:
+        deck2.append(pot.pop())
     else:
-        for _ in range(min(cards_down, len(player2)-1)):
-            pot.append(player2.popleft())
-    battle(player1, player2, pot)
+        for _ in range(min(cards_down, len(deck2)-1)):
+            pot.append(deck2.popleft())
+    battle(deck1, deck2, pot)
 
 
-def battle(player1, player2, pot=deque()):
+def battle(deck1, deck2, pot=deque()):
     """Compares the top cards of each player.
     Player with the higher rank top card wins the played cards.
     Goes to war if tied.
     """
-    card1, card2 = player1.popleft(), player2.popleft()
+    card1, card2 = deck1.popleft(), deck2.popleft()
     pot.appendleft(card1)
     pot.append(card2)
 
     # print(card1.rank, 'vs', card2.rank)
     if card1 > card2:
         # print('player 1 wins', pot)
-        player1.extend(rand_rev(pot))
+        deck1.extend(rand_rev(pot))
         pot.clear()
 
     elif card1 < card2:
         # print('player 2 wins', pot)
-        player2.extend(rand_rev(pot))
+        deck2.extend(rand_rev(pot))
         pot.clear()
 
     else:
-        war(player1, player2, pot)
+        war(deck1, deck2, pot)
 
 
 def game():
     """Simulates one game of war and returns the winner."""
-    player1, player2 = deal()
-    player1_init = player1.copy()
+    deck1, deck2 = deal()
+    deck1_init = deck1.copy()
 
-    data.add_games(player1_init)
+    data.add_games(deck1_init)
 
-    while len(player1) > 0 and len(player2) > 0:
-        battle(player1, player2)
-        # print('player 1:', len(player1), '\tplayer 2:', len(player2), '\n')
+    while len(deck1) > 0 and len(deck2) > 0:
+        battle(deck1, deck2)
+        # print('player 1:', len(deck1), '\tplayer 2:', len(deck2), '\n')
 
-    winner = 1 if len(player2) == 0 else 2
+    winner = 1 if len(deck2) == 0 else 2
 
     if winner == 1:
-        data.add_wins(player1_init)
+        data.add_wins(deck1_init)
 
     return winner
 
