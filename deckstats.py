@@ -29,15 +29,13 @@ class DeckStats():
             self._data[rank][count].wins += 1
 
     def get_wins(self, rank, count):
-        return self._data[rank][count].wins
+        return self._data[rank][count].get_wins()
 
     def get_games(self, rank, count):
-        return self._data[rank][count].games
+        return self._data[rank][count].get_games()
 
     def get_win_pct(self, rank, count):
-        wins = self.get_wins(rank, count)
-        games = self.get_games(rank, count)
-        return f'{wins / games:.3%}' if games > 0 else 'N/A'
+        return self._data[rank][count].win_pct()
 
     def display(self):
         header = ['(Rank, Count)', 'Wins', 'Games', 'Win Pct']

@@ -11,4 +11,5 @@ class WinData():
         return self.games
 
     def win_pct(self):
-        return f'{self.wins/self.games:.3%}'
+        wins, games = self.get_wins(), self.get_games()
+        return f'{wins/games:.3%}' if games > 0 else 'N/A'
