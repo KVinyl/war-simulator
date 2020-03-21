@@ -14,16 +14,18 @@ class DeckStats():
         self._data = {rank: {count: WinData() for count in self.counts}
                       for rank in self.ranks}
 
-    def add_games(self, deck):
+    def __count(self, deck):
         self._card_count = Counter({rank: 0 for rank in self.ranks})
         self._card_count.update([card.rank for card in deck])
+
+    def add_games(self, deck):
+        self.__count(deck)
 
         for rank, count in self._card_count.items():
             self._data[rank][count].games += 1
 
     def add_wins(self, deck):
-        self._card_count = Counter({rank: 0 for rank in self.ranks})
-        self._card_count.update([card.rank for card in deck])
+        self.__count(deck)
 
         for rank, count in self._card_count.items():
             self._data[rank][count].wins += 1
