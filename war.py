@@ -60,13 +60,23 @@ def battle(player1, player2, pot=deque()):
         war(player1, player2, pot)
 
 
-def game(player1, player2):
+def game():
     """Simulates one game of war and returns the winner."""
+    player1, player2 = deal()
+    player1_init = player1.copy()
+
+    data.add_games(player1_init)
+
     while len(player1) > 0 and len(player2) > 0:
         battle(player1, player2)
         # print('player 1:', len(player1), '\tplayer 2:', len(player2), '\n')
 
-    return 1 if len(player2) == 0 else 2
+    winner = 1 if len(player2) == 0 else 2
+
+    if winner == 1:
+        data.add_wins(player1_init)
+
+    return winner
 
 
 def deal():
@@ -83,15 +93,8 @@ def main():
     player one's deck at the start of each game.
     """
     num_games = 10000
-
     for _ in range(num_games):
-        player1, player2 = deal()
-        player1_init = player1.copy()
-
-        data.add_games(player1_init)
-
-        if game(player1, player2) == 1:
-            data.add_wins(player1_init)
+        game()
 
     data.display()
 
