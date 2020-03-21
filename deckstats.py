@@ -40,13 +40,18 @@ class DeckStats():
         return self._data[rank][count].win_pct()
 
     def display(self):
-        header = ['(Rank, Count)', 'Wins', 'Games', 'Win Pct']
+        header = ['Rank', 'Count', 'Wins', 'Games', 'Win Pct']
         data_table = [header]
         for rank in self.ranks:
             for count in self.counts:
                 rc = (rank, count)
-                row = [rc, self.get_wins(*rc), self.get_games(*rc),
+                row = [rank, count, self.get_wins(*rc), self.get_games(*rc),
                        self.get_win_pct(*rc)]
+
+                if count > 0:
+                    row[0] = ''
+                else:
+                    data_table.append([])
 
                 data_table.append([str(cell) for cell in row])
 
