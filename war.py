@@ -1,6 +1,10 @@
 from collections import deque
 from deck import Deck
+from deckstats import DeckStats
 from random import choice, shuffle
+
+
+data = DeckStats()
 
 
 def rand_rev(deck):
@@ -79,28 +83,17 @@ def main():
     player one's deck at the start of each game.
     """
     num_games = 10000
-    wins1 = wins2 = 0
-
-    n_ace_wins = {n: 0 for n in range(5)}
-    n_ace_games = {n: 0 for n in range(5)}
 
     for _ in range(num_games):
         player1, player2 = deal()
+        player1_init = player1.copy()
 
-        aces = len([card for card in player1 if card.rank == 'A'])
-        n_ace_games[aces] += 1
+        data.add_games(player1_init)
 
         if game(player1, player2) == 1:
-            wins1 += 1
-            n_ace_wins[aces] += 1
-        else:
-            wins2 += 1
+            data.add_wins(player1_init)
 
-    print('Player 1 wins:', wins1)
-    print('Player 2 wins:', wins2)
-
-    for n in range(5):
-        print(f'{n} aces: {n_ace_wins[n]/n_ace_games[n]:.3%}')
+    data.display()
 
 
 if __name__ == "__main__":
