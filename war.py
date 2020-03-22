@@ -21,7 +21,6 @@ def war(deck1, deck2, pot, cards_down=3):
     If the players don't have enough cards, their last card will determine
     the winner of the war.
     """
-    # print('WAR!')
     if len(deck1) == 0:
         deck1.append(pot.popleft())
     else:
@@ -46,14 +45,11 @@ def battle(deck1, deck2, pot=deque()):
     pot.appendleft(card1)
     pot.append(card2)
 
-    # print(card1.rank, 'vs', card2.rank)
     if card1 == card2:
         war(deck1, deck2, pot)
 
     else:
         win_deck = deck1 if card1 > card2 else deck2
-        # player = "player 1" if card1 > card2 else "player 2"
-        # print(player, "collects", pot)
         win_deck.extend(rand_rev(pot))
         pot.clear()
 
@@ -69,7 +65,6 @@ def game():
 
     while len(deck1) > 0 and len(deck2) > 0:
         battle(deck1, deck2)
-        # print('player 1:', len(deck1), '\tplayer 2:', len(deck2), '\n')
 
     winner = 1 if len(deck2) == 0 else 2
 
