@@ -59,7 +59,9 @@ def battle(deck1, deck2, pot=deque()):
 
 
 def game():
-    """Simulates one game of war and returns the winner."""
+    """Simulates one game of war, records player 1's initial deck
+    composition and whether player 1 won the game.
+    """
     deck1, deck2 = deal()
     deck1_init = deck1.copy()
 
@@ -73,8 +75,6 @@ def game():
 
     if winner == 1:
         data.add_wins(deck1_init)
-
-    return winner
 
 
 def deal():
