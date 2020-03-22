@@ -89,6 +89,7 @@ def main():
         game()
 
     data.display()
+    data.to_csv('results.csv')
 
 
 if __name__ == "__main__":

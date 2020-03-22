@@ -1,4 +1,5 @@
 from collections import Counter, namedtuple
+from csv import writer
 from deck import Deck
 from windata import WinData
 
@@ -57,3 +58,21 @@ class DeckStats():
 
         for row in data_table:
             print('\t'.join(row))
+
+    def to_csv(self, file_name):
+        header = ['Rank', 'Count', 'Wins', 'Games', 'Win Pct']
+        data_table = [header]
+        for rank in self.ranks:
+            for count in self.counts:
+                rc = (rank, count)
+                row = [*rc, self.wins(*rc), self.games(*rc),
+                       self.win_pct(*rc)]
+
+                data_table.append([str(cell) for cell in row])
+
+        with open(file_name, 'w', newline='') as file:
+            csv_writer = writer(file)
+            for row in data_table:
+                csv_writer.writerow(row)
+
+        file.close()
