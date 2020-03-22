@@ -33,6 +33,7 @@ def war(deck1, deck2, pot, cards_down=3):
     else:
         for _ in range(min(cards_down, len(deck2)-1)):
             pot.append(deck2.popleft())
+
     battle(deck1, deck2, pot)
 
 
@@ -46,18 +47,15 @@ def battle(deck1, deck2, pot=deque()):
     pot.append(card2)
 
     # print(card1.rank, 'vs', card2.rank)
-    if card1 > card2:
-        # print('player 1 wins', pot)
-        deck1.extend(rand_rev(pot))
-        pot.clear()
-
-    elif card1 < card2:
-        # print('player 2 wins', pot)
-        deck2.extend(rand_rev(pot))
-        pot.clear()
+    if card1 == card2:
+        war(deck1, deck2, pot)
 
     else:
-        war(deck1, deck2, pot)
+        win_deck = deck1 if card1 > card2 else deck2
+        # player = "player 1" if card1 > card2 else "player 2"
+        # print(player, "collects", pot)
+        win_deck.extend(rand_rev(pot))
+        pot.clear()
 
 
 def game():
