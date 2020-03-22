@@ -59,7 +59,7 @@ def battle(deck1, deck2, pot=deque()):
 
 
 def game():
-    """Simulates one game of war, records player 1's initial deck
+    """Simulates one game of war and records player 1's initial deck
     composition and whether player 1 won the game.
     """
     deck1, deck2 = deal()
@@ -87,8 +87,7 @@ def deal():
 
 def main():
     """Simulates multiple games of war.
-    Displays winning percentage based on number of aces in
-    player one's deck at the start of each game.
+    Displays winning percentage based on player 1's initial deck composition.
     """
     num_games = 10000
     for _ in range(num_games):
