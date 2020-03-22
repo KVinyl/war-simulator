@@ -30,13 +30,13 @@ class DeckStats():
         self.__count(deck)
         self.__increment('incre_games')
 
-    def get_wins(self, rank, count):
+    def wins(self, rank, count):
         return self._data[rank][count].get_wins()
 
-    def get_games(self, rank, count):
+    def games(self, rank, count):
         return self._data[rank][count].get_games()
 
-    def get_win_pct(self, rank, count):
+    def win_pct(self, rank, count):
         return self._data[rank][count].win_pct()
 
     def display(self):
@@ -45,8 +45,8 @@ class DeckStats():
         for rank in self.ranks:
             for count in self.counts:
                 rc = (rank, count)
-                row = [rank, count, self.get_wins(*rc), self.get_games(*rc),
-                       self.get_win_pct(*rc)]
+                row = [*rc, self.wins(*rc), self.games(*rc),
+                       self.win_pct(*rc)]
 
                 if count > 0:
                     row[0] = ''
