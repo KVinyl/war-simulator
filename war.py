@@ -54,7 +54,6 @@ def battle(deck1, deck2, pot=None):
     else:
         win_deck = deck1 if card1 > card2 else deck2
         win_deck.extend(rand_rev(pot))
-        pot.clear()
 
 
 def game():
