@@ -36,11 +36,14 @@ def war(deck1, deck2, pot, cards_down=3):
     battle(deck1, deck2, pot)
 
 
-def battle(deck1, deck2, pot=deque()):
+def battle(deck1, deck2, pot=None):
     """Compares the top cards of each player.
     Player with the higher rank top card wins the played cards.
     Goes to war if tied.
     """
+    if pot is None:
+        pot = deque()
+
     card1, card2 = deck1.popleft(), deck2.popleft()
     pot.appendleft(card1)
     pot.append(card2)
