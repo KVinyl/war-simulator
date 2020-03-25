@@ -20,14 +20,20 @@ def war(deck1, deck2, pot, cards_down=3):
     """Players place their next {cards_down} cards to the table.
     If the players don't have enough cards, their last card will determine
     the winner of the war.
+
+    If the players don't have any cards, their last played card will determine
+    the winner.
+
+    pot[0] == deck1's last played card
+    pot[-1] == deck2's last played card
     """
-    if len(deck1) == 0:
+    if not deck1:
         deck1.append(pot.popleft())
     else:
         for _ in range(min(cards_down, len(deck1)-1)):
             pot.appendleft(deck1.popleft())
 
-    if len(deck2) == 0:
+    if not deck2:
         deck2.append(pot.pop())
     else:
         for _ in range(min(cards_down, len(deck2)-1)):
