@@ -1,7 +1,7 @@
 from collections import deque
 from deck import Deck
 from deckstats import DeckStats
-from random import choice, shuffle
+from random import randint, shuffle
 
 
 data = DeckStats()
@@ -11,7 +11,7 @@ def rand_rev(deck):
     """Returns the deck in reversed order 50% of the time.
     Otherwise returns the deck unchanged.
     """
-    if choice([0, 1]):
+    if randint(0, 1):
         deck.reverse()
     return deck
 
