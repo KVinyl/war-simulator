@@ -65,12 +65,10 @@ def game():
 
     data.add_games(deck1_init)
 
-    while len(deck1) > 0 and len(deck2) > 0:
+    while deck1 and deck2:
         battle(deck1, deck2)
 
-    winner = 1 if len(deck2) == 0 else 2
-
-    if winner == 1:
+    if deck1:
         data.add_wins(deck1_init)
 
 
