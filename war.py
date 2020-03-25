@@ -76,8 +76,9 @@ def deal():
     """Returns an evenly divided shuffle deck to two players."""
     deck = Deck()
     shuffle(deck)
+    half = len(deck)//2
 
-    return [deque(deck[:26]), deque(deck[26:])]
+    return [deque(deck[:half]), deque(deck[half:])]
 
 
 def main():
