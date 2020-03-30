@@ -32,10 +32,10 @@ class DeckStats():
         self.__increment('incre_games')
 
     def wins(self, rank, count):
-        return self._data[rank][count].get_wins()
+        return self._data[rank][count].wins
 
     def games(self, rank, count):
-        return self._data[rank][count].get_games()
+        return self._data[rank][count].games
 
     def win_pct(self, rank, count):
         return self._data[rank][count].win_pct()
